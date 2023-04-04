@@ -7,11 +7,12 @@ from scipy.stats import norm
 chat_id = 288759659 # Ваш chat ID, не меняйте название переменной
 
 def solution(p: float, x: np.array) -> tuple:
-    # Измените код этой функции
-    # Это будет вашим решением
-    # Не меняйте название функции и её аргументы
+    from scipy.stats import chi2
+    n = x.shape[0]
+    sample_mean = np.mean(x)
+    sample_var = np.var(x, ddof=1) / 47
     alpha = 1 - p
-    loc = x.mean()
-    scale = np.sqrt(np.var(x)) / np.sqrt(len(x))
-    return loc - scale * norm.ppf(1 - alpha / 2), \
-           loc - scale * norm.ppf(alpha / 2)
+    t = (n - 1) * sample_var / chi2.ppf([1 - alpha/2, alpha/2], df= n - 1)
+    ci_low = np.sqrt(t[0])    
+    ci_high = np.sqrt(t[1])
+    return ci_low, ci_high
