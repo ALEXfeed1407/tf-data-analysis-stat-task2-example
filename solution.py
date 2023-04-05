@@ -15,3 +15,4 @@ def solution(p: float, x: np.array) -> tuple:
     a = np.sqrt( S_new/(z2 * 47))
     b = np.sqrt( S_new/(z1 * 47) )
     return (a, b)
+
